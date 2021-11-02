@@ -1,4 +1,5 @@
 import { Layout, Profile } from "./components";
+import Repositories from "./components/repositories";
 import { ResetCSS } from "./global/resetCSS";
 
 const App = () => {
@@ -7,8 +8,7 @@ const App = () => {
       <ResetCSS />
       <Layout>
         <Profile />
-        <div>Repositories</div>
-        <div>Starreds</div>
+        <Repositories />
       </Layout>
     </main>
   );
