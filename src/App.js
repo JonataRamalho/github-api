@@ -1,4 +1,4 @@
-import { Layout, Profile, Repositories } from "./components";
+import { Layout, Profile, Repositories, NoSearch } from "./components";
 import useGithub from "./hooks/github-hooks";
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
           )}
         </>
       ) : (
-        <div>Nenhum usuário pesquisado</div>
+        <NoSearch />
       )}
     </Layout>
   );
