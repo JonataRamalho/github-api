@@ -13,6 +13,7 @@ const GithubProvider = ({ children }) => {
     hasUser: false,
     loading: false,
     user: {
+      id: undefined,
       avatar: undefined,
       login: undefined,
       name: undefined,
@@ -42,6 +43,7 @@ const GithubProvider = ({ children }) => {
           ...prevState,
           hasUser: true,
           user: {
+            id: data.id,
             avatar: data.avatar_url,
             login: data.login,
             name: data.name,
@@ -64,9 +66,33 @@ const GithubProvider = ({ children }) => {
       });
   };
 
+  const getUserRepos = (username) => {
+    api.get(`users/${username}/repos`).then(({ data }) => {
+      setGithubState((prevState) => ({
+        ...prevState,
+        hasUser: true,
+        repositories: data,
+      }));
+    });
+  };
+
+  const getUserStarred = (username) => {
+    api.get(`users/${username}/starred`).then(({ data }) => {
+      setGithubState((prevState) => ({
+        ...prevState,
+        hasUser: true,
+        starred: data,
+      }));
+    });
+  };
+
   const contextValue = {
     githubState,
     getUser: useCallback((username) => getUser(username), []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getUserRepos: useCallback((username) => getUserRepos(username), []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getUserStarred: useCallback((username) => getUserStarred(username), []),
   };
 
   return (
